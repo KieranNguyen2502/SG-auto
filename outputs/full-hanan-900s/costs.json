@@ -1,0 +1,43 @@
+{
+  "args": {
+    "out": "saf_out",
+    "time_limit": 900,
+    "mip_gap": 0.0001,
+    "threads": 0,
+    "mipfocus": null,
+    "max_haul_km": 400,
+    "max_km_to_farm": 150,
+    "no_hanan": false,
+    "n_large": null,
+    "n_small": null,
+    "demand": "eq"
+  },
+  "n_cells": 4503,
+  "n_arcs": 166895,
+  "status": "time_limit",
+  "objective_musd": 890.2905756465346,
+  "mip_gap": 0.03040726308501737,
+  "runtime_s": 900.2009999752045,
+  "costs_usd": {
+    "transport_farm_depot": 27892787.28,
+    "transport_refinery_airport": 39655118.37,
+    "transport_depot_refinery": 0.0,
+    "refinery_capex": 229500000.0,
+    "refinery_fixed_opex": 229500000.0,
+    "refinery_var_opex": 330000000.0,
+    "depot_capex": 4837500.0,
+    "depot_fixed_opex": 4837500.0,
+    "depot_var_opex": 24067670.0,
+    "total": 890290575.65
+  },
+  "refineries": {
+    "Small": 0,
+    "Large": 6
+  },
+  "depots": {
+    "Small": 1,
+    "Large": 21
+  },
+  "biomass_used_kt": 6000.0,
+  "biomass_unused_kt": 800.0
+}

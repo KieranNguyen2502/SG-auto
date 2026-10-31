@@ -1,0 +1,32 @@
+{
+  "run_id": "smoke-farmsites-80km-v2",
+  "n_farms": 80,
+  "n_cells": 80,
+  "n_arcs": 840,
+  "status": "optimal",
+  "objective_musd": 931.3119135257209,
+  "mip_gap": 0.0,
+  "runtime_s": 65.11899995803833,
+  "costs_usd": {
+    "refinery_capex": 253500000.0,
+    "refinery_fixed_opex": 253500000.0,
+    "refinery_var_opex": 332250000.0,
+    "depot_capex": 4725000.0,
+    "depot_fixed_opex": 4725000.0,
+    "depot_var_opex": 24400060.0,
+    "transport_farm_depot": 21063219.91,
+    "transport_depot_refinery": 0.0,
+    "transport_refinery_airport": 37148633.61,
+    "total": 931311913.53
+  },
+  "refineries": {
+    "Small": 1,
+    "Large": 6
+  },
+  "depots": {
+    "Small": 4,
+    "Large": 19
+  },
+  "biomass_used_kt": 6000.0,
+  "biomass_unused_kt": 800.0
+}
