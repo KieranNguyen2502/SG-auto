@@ -218,3 +218,22 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# --- Hackathon baseline additions ---
+.claude/settings.local.json
+CLAUDE.local.md
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+data/raw/
+secrets/
+saf_out*/
+data and ideas/
+
+# Solver runs: ignored except the ones kept as results (logs included as evidence)
+outputs/*
+!outputs/full-hanan-900s/
+!outputs/smoke-farmsites-80km-v2/
+!outputs/full-hanan-900s/gurobi.log
+!outputs/smoke-farmsites-80km-v2/gurobi.log
