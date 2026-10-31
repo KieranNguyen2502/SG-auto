@@ -1,0 +1,67 @@
+{
+  "base_total_usd": 890290575.65,
+  "resolved_same_sites_usd": 890290570.9397486,
+  "refined_total_usd": 890182729.9051204,
+  "gain_from_reflow_usd": 4.710251331329346,
+  "gain_from_weiszfeld_usd": 107841.03462827206,
+  "gain_total_usd": 107845.74487960339,
+  "gain_total_pct": 0.0121135444796622,
+  "transport_before_usd": 67547905.65,
+  "transport_after_usd": 67440059.90512064,
+  "hubs": [
+    {
+      "hub": "H1",
+      "lat_before": 0.2625,
+      "lon_before": 110.7212,
+      "lat_after": 0.2625,
+      "lon_after": 110.7212,
+      "moved_km": 0.0,
+      "nearest_farm_km_after": 0.0
+    },
+    {
+      "hub": "H2",
+      "lat_before": -2.5395,
+      "lon_before": 111.7025,
+      "lat_after": -2.5395,
+      "lon_after": 111.7025,
+      "moved_km": 0.0,
+      "nearest_farm_km_after": 0.0
+    },
+    {
+      "hub": "H3",
+      "lat_before": -2.4623,
+      "lon_before": 113.0191,
+      "lat_after": -2.43848,
+      "lon_after": 112.98681,
+      "moved_km": 4.46,
+      "nearest_farm_km_after": 4.9
+    },
+    {
+      "hub": "H4",
+      "lat_before": -1.9542,
+      "lon_before": 110.0902,
+      "lat_after": -1.9542,
+      "lon_after": 110.0706,
+      "moved_km": 2.18,
+      "nearest_farm_km_after": 0.0
+    },
+    {
+      "hub": "H5",
+      "lat_before": -1.6378,
+      "lon_before": 109.7887,
+      "lat_after": -1.65548,
+      "lon_after": 109.78762,
+      "moved_km": 1.97,
+      "nearest_farm_km_after": 2.5
+    },
+    {
+      "hub": "H6",
+      "lat_before": -0.4098,
+      "lon_before": 116.894,
+      "lat_after": -0.44385,
+      "lon_after": 116.92766,
+      "moved_km": 5.32,
+      "nearest_farm_km_after": 9.2
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "refined_from": "outputs\\full-hanan-900s",
+  "rounds": 2,
+  "max_haul_km": 400,
+  "status": "optimal",
+  "objective_musd": 890.1827299051205,
+  "mip_gap": 0.0,
+  "runtime_s": 0.05200004577636719,
+  "costs_usd": {
+    "transport_farm_depot": 27663417.76,
+    "transport_refinery_airport": 39776642.15,
+    "transport_depot_refinery": 0.0,
+    "refinery_capex": 229500000.0,
+    "refinery_fixed_opex": 229500000.0,
+    "refinery_var_opex": 330000000.0,
+    "depot_capex": 4837500.0,
+    "depot_fixed_opex": 4837500.0,
+    "depot_var_opex": 24067670.0,
+    "total": 890182729.91
+  },
+  "refineries": {
+    "Small": 0,
+    "Large": 6
+  },
+  "depots": {
+    "Small": 1,
+    "Large": 21
+  },
+  "biomass_used_kt": 6000.0,
+  "biomass_unused_kt": 800.0
+}

@@ -237,3 +237,5 @@ outputs/*
 !outputs/smoke-farmsites-80km-v2/
 !outputs/full-hanan-900s/gurobi.log
 !outputs/smoke-farmsites-80km-v2/gurobi.log
+!outputs/weiszfeld-refined/
+!outputs/weiszfeld-refined/gurobi.log
