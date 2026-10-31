@@ -1,0 +1,86 @@
+{
+  "date": "2026-10-31",
+  "advanced_reported": {
+    "source": "User-provided local Gurobi run text; no facility or flow CSVs supplied",
+    "objective_musd": 890.2905756465,
+    "best_bound_musd": 863.2192758907,
+    "mip_gap": 0.030407263085023277,
+    "runtime_s": 900.2,
+    "status": "time_limit",
+    "refineries": {
+      "Small": 0,
+      "Large": 6
+    },
+    "depots": {
+      "Small": 1,
+      "Large": 21
+    },
+    "biomass_used_kt": 6000.0,
+    "biomass_unused_kt": 800.0
+  },
+  "existing_sites_baseline": {
+    "args": {
+      "farms_only": false,
+      "max_haul_km": 400,
+      "time_limit": 900.0,
+      "mip_gap": 0.0001,
+      "n_large": null,
+      "n_small": null,
+      "out": "/workspace/scratch/73a1a8a2b772/tmp/baseline_highs"
+    },
+    "n_cells": 84,
+    "n_arcs": 2984,
+    "test_matrix_max_residual": 9.97680458965621e-09,
+    "test_bounds_max_violation": 9.97688265189692e-09,
+    "test_integrality_max_error": 1.3658962849660838e-11,
+    "status": "time_limit",
+    "objective_musd": 890.3536544238032,
+    "mip_gap": 0.025204301222146924,
+    "runtime_s": 900.0263437590002,
+    "best_bound_musd": 867.9129127234663,
+    "absolute_gap_musd": 22.440741700336844,
+    "solver": "SciPy/HiGHS",
+    "solver_version": "SciPy 1.17.0; HiGHS 1.8.0",
+    "node_count": 44250,
+    "n_variables": 3992,
+    "n_constraints": 3741,
+    "validation_passed": true,
+    "costs_usd": {
+      "transport_farm_depot": 27753815.93,
+      "transport_refinery_airport": 39857168.5,
+      "transport_depot_refinery": 0.0,
+      "refinery_capex": 229500000.0,
+      "refinery_fixed_opex": 229500000.0,
+      "refinery_var_opex": 330000000.0,
+      "depot_capex": 4837500.0,
+      "depot_fixed_opex": 4837500.0,
+      "depot_var_opex": 24067670.0,
+      "total": 890353654.42
+    },
+    "refineries": {
+      "Small": 0,
+      "Large": 6
+    },
+    "depots": {
+      "Small": 1,
+      "Large": 21
+    },
+    "biomass_used_kt": 6000.0,
+    "biomass_unused_kt": 800.0
+  },
+  "incumbent_saving_musd_per_year": 0.06307877730318978,
+  "incumbent_saving_percent_of_baseline": 0.00708468786417365,
+  "comparison_scope": "Feasible incumbents, not proven differences between global optima. Same embedded data, costs, co-located-depot model and 400 km haul cap. Baseline uses 84 existing farm/airport coordinates; the supplied advanced default uses 4503 candidates and contains all 84 existing coordinates. The actual advanced CLI was not supplied; its default settings are assumed. Different solvers and hardware: runtimes are not a solver-speed comparison.",
+  "tests": {
+    "embedded_data_and_parameters_match_original": true,
+    "gurobi_constraint_and_objective_AST_matches_original": true,
+    "all_84_baseline_sites_in_original_default_Hanan_set": true,
+    "hand_calculated_tiny_instance_and_invalid_flow_checks_pass": true,
+    "full_baseline_matrix_and_flow_cost_validation_pass": true
+  },
+  "sha256": {
+    "saf_baseline.py": "d9dc29d86a6c689a4bf920008e433f93f000bb8fa8d94ab4bdcb7b63c4df6a66",
+    "original_saf_solve.py": "4d911697b58aa2a197fdcb76b808ab69b7fe60291dd6eceba551b4c09c17329a",
+    "handover_pdf": "3dc217e45c9c3c3b37c1f88caa9b4c454e522e9d2432997bc0a218166f5a9361"
+  }
+}

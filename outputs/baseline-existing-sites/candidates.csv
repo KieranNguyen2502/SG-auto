@@ -1,0 +1,85 @@
+cell_index,lat,lon,existing_site_id,existing_site_kind,existing_site_name
+0,-1.9635,110.1136,KAL_SUP_01,farm,Ketapang
+1,-2.1083,111.5801,KAL_SUP_02,farm,Kotawaringin Barat
+2,-2.0515,109.9553,KAL_SUP_03,farm,Ketapang
+3,-1.6149,116.3117,KAL_SUP_04,farm,Paser
+4,-2.085,113.235,KAL_SUP_05,farm,Kotawaringin Timur
+5,-1.847,110.0258,KAL_SUP_06,farm,Ketapang
+6,-2.0294,110.3472,KAL_SUP_07,farm,Ketapang
+7,0.2911,110.6932,KAL_SUP_08,farm,Sanggau
+8,-2.264,111.7926,KAL_SUP_09,farm,Kotawaringin Barat
+9,-0.6682,116.8524,KAL_SUP_10,farm,Kutai Kartanegara
+10,-0.664,117.3125,KAL_SUP_11,farm,Kutai Kartanegara
+11,-2.7613,112.8714,KAL_SUP_12,farm,Kotawaringin Timur
+12,-0.3066,116.8705,KAL_SUP_13,farm,Kutai Kartanegara
+13,-2.1397,110.2164,KAL_SUP_14,farm,Ketapang
+14,-1.682,110.4027,KAL_SUP_15,farm,Ketapang
+15,-2.5858,112.7929,KAL_SUP_16,farm,Kotawaringin Timur
+16,-0.3747,116.804,KAL_SUP_17,farm,Kutai Kartanegara
+17,2.61,117.2423,KAL_SUP_18,farm,Bulungan
+18,-2.5394,112.8334,KAL_SUP_19,farm,Kotawaringin Timur
+19,-2.9999,111.9992,KAL_SUP_20,farm,Kotawaringin Barat
+20,-2.1934,115.7592,KAL_SUP_21,farm,Paser
+21,-1.5194,109.602,KAL_SUP_22,farm,Ketapang
+22,-0.0962,110.4256,KAL_SUP_23,farm,Sanggau
+23,-1.8548,116.1854,KAL_SUP_24,farm,Paser
+24,0.3297,110.817,KAL_SUP_25,farm,Sanggau
+25,-4.0801,114.8675,KAL_SUP_26,farm,Tanah Laut
+26,-1.9857,111.856,KAL_SUP_27,farm,Kotawaringin Barat
+27,-2.3295,111.9558,KAL_SUP_28,farm,Kotawaringin Barat
+28,-1.6332,110.1275,KAL_SUP_29,farm,Ketapang
+29,-0.3435,117.0175,KAL_SUP_30,farm,Kutai Kartanegara
+30,-1.6977,109.6352,KAL_SUP_31,farm,Ketapang
+31,-1.6782,109.7887,KAL_SUP_32,farm,Ketapang
+32,-2.6368,112.6695,KAL_SUP_33,farm,Kotawaringin Timur
+33,0.2514,110.2592,KAL_SUP_34,farm,Sanggau
+34,-1.6283,110.2045,KAL_SUP_35,farm,Ketapang
+35,-2.5737,112.6033,KAL_SUP_36,farm,Kotawaringin Timur
+36,-2.0081,109.8869,KAL_SUP_37,farm,Ketapang
+37,-0.3295,117.0183,KAL_SUP_38,farm,Kutai Kartanegara
+38,0.2131,110.645,KAL_SUP_39,farm,Sanggau
+39,-0.2488,110.4914,KAL_SUP_40,farm,Sanggau
+40,-1.7119,110.0077,KAL_SUP_41,farm,Ketapang
+41,0.133,110.3271,KAL_SUP_42,farm,Sanggau
+42,-1.6746,109.7672,KAL_SUP_43,farm,Ketapang
+43,-0.3668,116.8975,KAL_SUP_44,farm,Kutai Kartanegara
+44,-2.0425,113.0427,KAL_SUP_45,farm,Kotawaringin Timur
+45,0.2625,110.7212,KAL_SUP_46,farm,Sanggau
+46,-2.4623,113.0832,KAL_SUP_47,farm,Kotawaringin Timur
+47,-1.6378,110.0902,KAL_SUP_48,farm,Ketapang
+48,-2.6715,111.589,KAL_SUP_49,farm,Kotawaringin Barat
+49,-2.1621,109.9169,KAL_SUP_50,farm,Ketapang
+50,-1.9542,110.0706,KAL_SUP_51,farm,Ketapang
+51,-1.5392,115.8861,KAL_SUP_52,farm,Paser
+52,0.2589,110.3311,KAL_SUP_53,farm,Sanggau
+53,-0.712,116.982,KAL_SUP_54,farm,Kutai Kartanegara
+54,-0.4098,116.5264,KAL_SUP_55,farm,Kutai Kartanegara
+55,-2.2348,115.7677,KAL_SUP_56,farm,Paser
+56,-0.0881,116.8219,KAL_SUP_57,farm,Kutai Kartanegara
+57,-1.8634,109.8828,KAL_SUP_58,farm,Ketapang
+58,-3.9454,114.676,KAL_SUP_59,farm,Tanah Laut
+59,-3.5655,114.8385,KAL_SUP_60,farm,Tanah Laut
+60,-2.0292,116.2806,KAL_SUP_61,farm,Paser
+61,-1.6347,109.7354,KAL_SUP_62,farm,Ketapang
+62,0.4711,110.978,KAL_SUP_63,farm,Sanggau
+63,-2.6729,112.0284,KAL_SUP_64,farm,Kotawaringin Barat
+64,-2.5395,111.7025,KAL_SUP_65,farm,Kotawaringin Barat
+65,-0.3758,117.121,KAL_SUP_66,farm,Kutai Kartanegara
+66,-2.6718,111.704,KAL_SUP_67,farm,Kotawaringin Barat
+67,-2.7388,111.3012,KAL_SUP_68,farm,Kotawaringin Barat
+68,-2.1443,110.0022,KAL_SUP_69,farm,Ketapang
+69,2.8936,117.2919,KAL_SUP_70,farm,Bulungan
+70,-2.4114,112.9518,KAL_SUP_71,farm,Kotawaringin Timur
+71,-2.2989,113.0191,KAL_SUP_72,farm,Kotawaringin Timur
+72,-0.2772,110.5956,KAL_SUP_73,farm,Sanggau
+73,0.2713,111.0006,KAL_SUP_74,farm,Sanggau
+74,0.1668,110.9547,KAL_SUP_75,farm,Sanggau
+75,-2.214,111.9176,KAL_SUP_76,farm,Kotawaringin Barat
+76,-0.7849,117.0677,KAL_SUP_77,farm,Kutai Kartanegara
+77,-2.3248,111.4876,KAL_SUP_78,farm,Kotawaringin Barat
+78,-2.5115,112.0284,KAL_SUP_79,farm,Kotawaringin Barat
+79,-2.1498,109.7591,KAL_SUP_80,farm,Ketapang
+80,-0.15071099996566772,109.40399932861328,PNK,airport,"Supadio Intl, Pontianak"
+81,-2.70519995689,111.672996521,PKN,airport,"Iskandar, Pangkalan Bun"
+82,-1.26827001572,116.893997192,BPN,airport,"Sultan Aji Muhammad Sulaiman Sepinggan Intl, Balikpapan"
+83,3.326667,117.569444,TRK,airport,"Juwata Intl, Tarakan"

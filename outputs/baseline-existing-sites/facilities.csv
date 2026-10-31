@@ -1,0 +1,29 @@
+hub,facility,unit_id,size,lat,lon,intake_kt,capacity_kt,utilisation,nearest_farm_km,existing_site_id,existing_site_kind,existing_site_name
+H1,refinery,H1-R,Large,-1.6782,109.7887,900.0,1087,0.828,0.0,KAL_SUP_32,farm,Ketapang
+H1,depot,H1-DL1,Large,-1.6782,109.7887,300.0,300,1.0,0.0,KAL_SUP_32,farm,Ketapang
+H1,depot,H1-DL2,Large,-1.6782,109.7887,300.0,300,1.0,0.0,KAL_SUP_32,farm,Ketapang
+H1,depot,H1-DL3,Large,-1.6782,109.7887,300.0,300,1.0,0.0,KAL_SUP_32,farm,Ketapang
+H2,refinery,H2-R,Large,-0.3668,116.8975,1087.0,1087,1.0,0.0,KAL_SUP_44,farm,Kutai Kartanegara
+H2,depot,H2-DL1,Large,-0.3668,116.8975,271.75,300,0.9058,0.0,KAL_SUP_44,farm,Kutai Kartanegara
+H2,depot,H2-DL2,Large,-0.3668,116.8975,271.75,300,0.9058,0.0,KAL_SUP_44,farm,Kutai Kartanegara
+H2,depot,H2-DL3,Large,-0.3668,116.8975,271.75,300,0.9058,0.0,KAL_SUP_44,farm,Kutai Kartanegara
+H2,depot,H2-DL4,Large,-0.3668,116.8975,271.75,300,0.9058,0.0,KAL_SUP_44,farm,Kutai Kartanegara
+H3,refinery,H3-R,Large,0.2625,110.7212,1087.0,1087,1.0,0.0,KAL_SUP_46,farm,Sanggau
+H3,depot,H3-DL1,Large,0.2625,110.7212,271.75,300,0.9058,0.0,KAL_SUP_46,farm,Sanggau
+H3,depot,H3-DL2,Large,0.2625,110.7212,271.75,300,0.9058,0.0,KAL_SUP_46,farm,Sanggau
+H3,depot,H3-DL3,Large,0.2625,110.7212,271.75,300,0.9058,0.0,KAL_SUP_46,farm,Sanggau
+H3,depot,H3-DL4,Large,0.2625,110.7212,271.75,300,0.9058,0.0,KAL_SUP_46,farm,Sanggau
+H4,refinery,H4-R,Large,-1.9542,110.0706,967.67,1087,0.8902,0.0,KAL_SUP_51,farm,Ketapang
+H4,depot,H4-DL1,Large,-1.9542,110.0706,300.0,300,1.0,0.0,KAL_SUP_51,farm,Ketapang
+H4,depot,H4-DL2,Large,-1.9542,110.0706,300.0,300,1.0,0.0,KAL_SUP_51,farm,Ketapang
+H4,depot,H4-DL3,Large,-1.9542,110.0706,300.0,300,1.0,0.0,KAL_SUP_51,farm,Ketapang
+H4,depot,H4-DS1,Small,-1.9542,110.0706,67.67,150,0.4511,0.0,KAL_SUP_51,farm,Ketapang
+H5,refinery,H5-R,Large,-2.5395,111.7025,893.19,1087,0.8217,0.0,KAL_SUP_65,farm,Kotawaringin Barat
+H5,depot,H5-DL1,Large,-2.5395,111.7025,297.73,300,0.9924,0.0,KAL_SUP_65,farm,Kotawaringin Barat
+H5,depot,H5-DL2,Large,-2.5395,111.7025,297.73,300,0.9924,0.0,KAL_SUP_65,farm,Kotawaringin Barat
+H5,depot,H5-DL3,Large,-2.5395,111.7025,297.73,300,0.9924,0.0,KAL_SUP_65,farm,Kotawaringin Barat
+H6,refinery,H6-R,Large,-2.4114,112.9518,1065.14,1087,0.9799,0.0,KAL_SUP_71,farm,Kotawaringin Timur
+H6,depot,H6-DL1,Large,-2.4114,112.9518,266.285,300,0.8876,0.0,KAL_SUP_71,farm,Kotawaringin Timur
+H6,depot,H6-DL2,Large,-2.4114,112.9518,266.285,300,0.8876,0.0,KAL_SUP_71,farm,Kotawaringin Timur
+H6,depot,H6-DL3,Large,-2.4114,112.9518,266.285,300,0.8876,0.0,KAL_SUP_71,farm,Kotawaringin Timur
+H6,depot,H6-DL4,Large,-2.4114,112.9518,266.285,300,0.8876,0.0,KAL_SUP_71,farm,Kotawaringin Timur

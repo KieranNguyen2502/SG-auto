@@ -1,0 +1,47 @@
+SAF existing-location baseline - 31 October 2026
+
+RUN ON YOUR GUROBI MACHINE
+  python -m pip install gurobipy
+  python saf_baseline.py --threads 12 --time-limit 900 --out saf_baseline_out
+
+The script is self-contained. Default candidates are the 80 farms plus four airports.
+Both depots and refineries can be built at either type of existing location. Existing
+locations are not free pre-built facilities: all original construction costs apply.
+The same one-refinery-per-site and co-located-depot assumptions are retained.
+Use --farms-only --max-haul-km 80 to reproduce the old handover's candidate/haul policy.
+
+CONTENTS
+  saf_baseline.py: Gurobi script; only gurobipy is required.
+  baseline_results/: full result produced here with an independent SciPy/HiGHS
+    transcription of the same MILP, plus its log and unrounded solution.
+  comparison.json: exact comparison and verification metadata.
+  verification/run_highs.py: optional independent runner (requires scipy and numpy).
+    Run from this extracted folder with:
+      python verification/run_highs.py --time-limit 900 --out verification_run
+
+RESULTS
+  Baseline incumbent: $890.353654424 million/year.
+  Baseline bound: $867.912912723 million/year.
+  Baseline relative MIP gap: 2.520430%.
+  Baseline status: time_limit.
+  Advanced incumbent reported by you: $890.2905756465 million/year.
+  Difference between these incumbents: $63,078.78/year
+    (0.007085% of baseline).
+
+Gurobi was not installed in this environment. The Gurobi formulation in the delivered
+script was checked against the original syntax tree: all objective terms and
+constraints are unchanged. The full independent HiGHS result was checked against
+every original matrix row, nonnegativity and integrality, and independently recomputed
+flow balances, capacities and annual cost. A local Gurobi run may return a different
+incumbent or gap within the same time limit. No runtime-speed claim is made.
+
+These costs assume annualised capital = CapEx/20, fixed operating cost = 5% of CapEx,
+yield = 20%, great-circle distances x 1.3, and 400 km farm-to-hub arcs. They describe
+the model, not a land-permission or engineering feasibility assessment.
+
+The handover's $931.3M/year result used only farm sites AND an 80 km haul cap. Its
+roughly $41M difference from the advanced run cannot be assigned solely to the Hanan
+grid. The source code does not implement the handover's planned Weiszfeld refinement.
+
+No advanced facility/flow CSV was supplied, so exact advanced coordinates, airport
+allocations and discarded farms cannot be reconstructed from the console summary.

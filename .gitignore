@@ -239,3 +239,5 @@ outputs/*
 !outputs/smoke-farmsites-80km-v2/gurobi.log
 !outputs/weiszfeld-refined/
 !outputs/weiszfeld-refined/gurobi.log
+!outputs/baseline-existing-sites/
+!outputs/baseline-existing-sites/highs.log
