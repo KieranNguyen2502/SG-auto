@@ -32,6 +32,7 @@ Gurobi: MIPGap 1e-4, TimeLimit ~900 s, LogFile per run, MIP starts on re-solves,
 
 ## Stretch
 - [ ] Land mask (GADM IDN level 1, 5 Kalimantan provinces) + `snap_to_land`
+- [x] Weiszfeld refinement of the full-run plan (`standalone/weiszfeld_refine.py`): $890.291M → $890.183M (−0.012%), hubs moved ≤ 5.3 km
 - [ ] `app/refine.py` — Weiszfeld (planar km, Vardi–Zhang step near anchors) + fixed-sites re-solve loop; accept only if great-circle cost drops; add refined cells, re-solve full MILP (≤3 rounds); report km moved per refinery
 - [ ] Folium map (line width ∝ tonnes)
 - [ ] Scenarios: fixed 6 Large; sensitivity (yield 0.15–0.25, demand ±20%/uneven, refinery CapEx ±20%, road factor 1.1–1.5); Hanan vs uniform grid; Gurobi solution pool for alternative plans

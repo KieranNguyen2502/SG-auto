@@ -32,7 +32,7 @@ Transport: farm → depot $0.10, depot → refinery $0.12, refinery → airport 
 
 **Model.** A mixed-integer program (Gurobi) over candidate hub sites: binary refinery-size choice per site (at most one refinery per site), integer depot counts, continuous flows. Constraints: farm supply, refinery and depot capacity, 0.20 yield, exact demand per airport. Two valid cuts tighten the formulation: flow only to open sites (x ≤ supply × open), and at least ⌈6,000 / 1,087⌉ = 6 refineries (the second alone cut solve time by ~35% on a reduced real instance, same optimum). Every solution is re-checked independently: constraints and cost are recomputed from the flows and must match Gurobi's objective.
 
-**Candidate sites.** Facilities may sit anywhere on land, so we generate candidates from the *Hanan grid*: every (latitude, longitude) pair formed by the farm and airport coordinates, plus all 80 farm sites (4,503 cells after filtering). Under Manhattan distance the full Hanan grid provably contains an optimal site for every facility; we keep the part within 150 km of a farm and merge points closer than 1 km. Under the brief's great-circle distance it is a strong but not exhaustive candidate set (densest inside the farm clusters), which is why we plan Weiszfeld refinement to move each refinery to its exact best point. Farm → hub arcs longer than 400 road-km are pruned (at $0.10/t-km a 400 km haul already costs $40/t).
+**Candidate sites.** Facilities may sit anywhere on land, so we generate candidates from the *Hanan grid*: every (latitude, longitude) pair formed by the farm and airport coordinates, plus all 80 farm sites (4,503 cells after filtering). Under Manhattan distance the full Hanan grid provably contains an optimal site for every facility; we keep the part within 150 km of a farm and merge points closer than 1 km. Under the brief's great-circle distance it is a strong but not exhaustive candidate set (densest inside the farm clusters), so we test it with Weiszfeld refinement, which moves each refinery to its exact best point ([below](#weiszfeld-refinement-are-the-grid-sites-in-the-right-place): it gains only 0.012%). Farm → hub arcs longer than 400 road-km are pruned (at $0.10/t-km a 400 km haul already costs $40/t).
 
 ## Results
 
@@ -70,6 +70,35 @@ All refinery sizes are Large (1,087 kt). District is that of the nearest biomass
 
 **Which 800 kt is left unused, and why.** The unused biomass is all in the east and south: Paser (454.9 kt over 5 sites, south of Balikpapan), Bulungan (189.0 kt over 2 sites, the nearest biomass to Tarakan) and Tanah Laut (156.2 kt over 2 sites, south coast); 7 sites are unused entirely and 2 partly ([`unused_farms.csv`](outputs/full-hanan-900s/unused_farms.csv)). Leaving out the biomass next to Tarakan is the cost structure at work, not a bug: moving the biomass for one tonne of SAF costs 5 t × $0.10 = $0.50 per km, while moving the SAF itself costs $0.08 per km, 6.25× less. So refineries sit in the dense western and central clusters, and the SAF travels east.
 
+## Weiszfeld refinement: are the grid sites in the right place?
+
+The grid restricts hubs to fixed candidate points. To measure what that costs, [`standalone/weiszfeld_refine.py`](standalone/weiszfeld_refine.py) takes the plan above and lets every hub move freely, alternating two steps until the cost stops falling:
+
+1. **Move.** With each hub's farms and airports fixed, move the hub to the point minimising its transport cost Σ wₖ · d(hub, pₖ) (the weighted Fermat–Weber problem), by Weiszfeld iteration with the Vardi–Zhang rule for a hub sitting on a farm. Weights: $0.10 × 1.3 × tonnes for each farm, $0.08 × 1.3 × tonnes of SAF for each airport. A move is kept only if the exact great-circle cost drops.
+2. **Re-solve.** With the hubs fixed, re-optimise flows, refinery sizes and depot counts (the same MILP on just these 6 sites).
+
+| Step | $M / yr |
+|---|---|
+| Grid plan (above) | 890.291 |
+| Re-solve flows on the same 6 sites | 890.291 (gain 0.000) |
+| **Weiszfeld-refined sites (converged in 2 rounds)** | **890.183** |
+| **Improvement** | **0.108 (0.012%)** |
+
+| Hub | Moved | Nearest farm after |
+|---|---|---|
+| H1 Sanggau, H2 Kotawaringin Barat | 0 km (optimal on their farm site) | 0.0 km |
+| H3 Kotawaringin Timur | 4.46 km | 4.9 km |
+| H4 Ketapang | 2.18 km (onto farm KAL_SUP_51) | 0.0 km |
+| H5 Ketapang | 1.97 km | 2.5 km |
+| H6 Kutai Kartanegara | 5.32 km | 9.2 km |
+
+All of the change is transport ($67.548M → $67.440M); facilities are unchanged (6 Large refineries, 21 Large + 1 Small depots). Every refined hub is a verified local minimum (moving it 0.5 km in any of 16 directions raises its cost), and each re-solve passes the same independent cost and constraint check. Outputs: [`outputs/weiszfeld-refined/`](outputs/weiszfeld-refined/) (`refine_summary.json`, `refine_log.csv`, plus the usual plan files).
+
+**What it shows:**
+- **The Hanan grid already places hubs almost exactly right.** Freeing all six hubs from the grid gains $0.11M / yr, 0.012%. The grid restriction is not a meaningful source of cost.
+- **The time-limited flows are already optimal for their sites** (the same-site re-solve gains nothing).
+- **Any larger saving lies in which clusters get hubs and how farms are split between them**, not in fine positioning. Weiszfeld cannot change that; only more MILP search can.
+
 ## Near-optimal, and how to improve it
 
 The 3.04% gap means no plan *on this candidate network* costs less than $863.2M; ours is at most $27.1M / yr above that. Where that slack can be:
@@ -84,7 +113,7 @@ To tighten it:
 
 1. **More runtime with the refinery count fixed** (removes search Gurobi doesn't need):
    `python standalone/saf_solve.py --n-large 6 --n-small 0 --threads 12 --time-limit 3600 --mipfocus 2`
-2. **Weiszfeld refinement** (planned, `app/refine.py`): move each refinery off the grid to its exact cost-minimising point, re-solve the flows, repeat. It can only lower the cost, and can go below the grid's bound.
+2. **Feed refined sites back into the full MILP** (planned): add the Weiszfeld points as extra candidates and re-solve, so the search can also re-pick clusters. Fine positioning alone is worth only $0.11M / yr (see above).
 3. **Land mask** (planned): snap every site onto land in Kalimantan.
 
 ## Running it
@@ -101,7 +130,9 @@ Standalone (one file, data embedded, needs only `gurobipy`):
 ```bash
 pip install gurobipy
 python standalone/saf_solve.py --threads 12 --time-limit 1800   # -> saf_out/
+python standalone/weiszfeld_refine.py --base saf_out --out saf_out_refined   # refine a result
 ```
+`weiszfeld_refine.py` needs `saf_solve.py` beside it; its re-solves are small (~560 variables), so it runs on the pip licence.
 The full model has ~221k variables, so it needs an academic or WLS Gurobi licence (the pip licence is capped at 2,000).
 
 Outputs: `facilities.csv`, `flows_farm_depot.csv`, `flows_depot_refinery.csv`, `flows_refinery_airport.csv` (tonnes, km, cost, trips per truck size), `unused_farms.csv`, `costs.json`, `gurobi.log`.
@@ -112,6 +143,7 @@ Outputs: `facilities.csv`, `flows_farm_depot.csv`, `flows_depot_refinery.csv`, `
 |---|---|
 | `src/app/` | data, geo, candidates, distances, model, validate, report, pipeline, CLI |
 | `standalone/saf_solve.py` | self-contained solver for other machines |
+| `standalone/weiszfeld_refine.py` | Weiszfeld refinement of a solved plan (experiment) |
 | `config/base.toml` | all parameters and run settings (`--set section.key=value` overrides) |
 | `data/` | biomass sites, OpenFlights airports, official parameter workbook |
 | `outputs/` | solver runs |
@@ -121,7 +153,7 @@ Outputs: `facilities.csv`, `flows_farm_depot.csv`, `flows_depot_refinery.csv`, `
 ## Limitations
 
 - **Refinery locations are not yet verified to be on land in Kalimantan.** Candidate sites are not checked against a coastline or the Indonesia–Malaysia border. In this solution the risk is low: H1 and H2 sit exactly on biomass sites, and H3–H6 are grid points 2.2–7.1 km from one, inside their farm clusters and well inland of the Malaysian border (the northernmost hub, H1, is at 0.26° N). None is more than 30 km from a farm (`nearest_farm_km` in `facilities.csv`). The fix (planned) is a GADM land mask for the five Kalimantan provinces, with any off-land site snapped to the nearest land point and the flows re-solved; its cost effect is unknown until that is run.
-- **Optimality is relative to the candidate network** (4,503 sites, ≤ 400 km farm → hub hauls). An off-grid site can be cheaper; Weiszfeld refinement (planned) addresses this.
+- **Optimality is relative to the candidate network** (4,503 sites, ≤ 400 km farm → hub hauls). Off-grid sites are cheaper, but by little: Weiszfeld refinement of all six hubs gains $0.11M / yr (0.012%). The refined H3, H5 and H6 positions are 2.5–9.2 km from a farm and are not land-checked either.
 - **Not solved to proven optimality:** 900 s time limit, gap 3.04%.
 
 ## Assumptions
