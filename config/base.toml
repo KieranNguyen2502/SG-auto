@@ -1,0 +1,77 @@
+# Base scenario for Challenge #3 (SAF supply chain, Kalimantan).
+# Paths are relative to the repo root (run from there). Numbers match docs/PROBLEM.md and
+# data/challenge3_parameters.xlsx (cross-checked in tests/test_data.py).
+
+[data]
+farms_csv = "data/kalimantan_80_locations_6800kt_full_range.csv"
+airports_dat = "data/airports.dat"
+
+[airports]
+# SAF demand in kt/yr, matched by IATA code (never by name) in airports.dat.
+demand_kt = { PNK = 300, PKN = 300, BPN = 300, TRK = 300 }
+barge = ["TRK"]   # island: final leg by barge, same USD/t-km
+
+[process]
+yield = 0.20            # t SAF per t biomass
+road_factor = 1.3       # road km = great-circle km x factor
+capex_years = 20        # straight-line, no interest
+fixed_opex_frac = 0.05  # of CapEx, per year
+
+[depot.Small]
+capex_usd = 2_250_000
+capacity_kt = 150
+var_opex_usd_per_t = 5
+max_per_cell = 2
+
+[depot.Large]
+capex_usd = 4_500_000
+capacity_kt = 300
+var_opex_usd_per_t = 4
+max_per_cell = 4
+
+[refinery.Small]
+capex_usd = 480_000_000
+capacity_kt = 500
+var_opex_usd_per_t = 60
+
+[refinery.Large]
+capex_usd = 765_000_000
+capacity_kt = 1087
+var_opex_usd_per_t = 55
+
+[transport.farm_depot]
+cost_usd_per_tkm = 0.10
+small_truck_t = 3
+large_truck_t = 9
+
+[transport.depot_refinery]
+cost_usd_per_tkm = 0.12
+small_truck_t = 18
+large_truck_t = 30
+
+[transport.refinery_airport]
+cost_usd_per_tkm = 0.08
+small_truck_t = 16
+large_truck_t = 32
+
+[candidates]
+include_farm_sites = true
+hanan = true             # all (lat, lon) pairs from farm + airport coordinates
+max_km_to_farm = 150     # great-circle km; crude stand-in for a land mask
+dedupe_km = 1.0
+bbox = [-4.5, 108.5, 4.5, 119.5]  # lat_min, lon_min, lat_max, lon_max
+
+[model]
+max_haul_km = 400        # road km; longer farm->depot arcs are pruned
+demand = "eq"            # "eq" or "ge"
+mip_gap = 1e-4
+time_limit_s = 900
+# Optional: force refinery counts, e.g. n_refineries = { Large = 6, Small = 0 }
+
+[model.gurobi]
+# Any Gurobi parameter, passed through as-is. Examples:
+# Threads = 8
+# MIPFocus = 2   # focus on the bound if the gap stalls
+
+[output]
+dir = "outputs"
