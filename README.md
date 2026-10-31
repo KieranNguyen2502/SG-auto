@@ -6,6 +6,18 @@ Challenge #3, Autonomous SG 2026 (AI & Aerospace track), Acacia Hackathon Societ
 
 > **Main open limitation:** refinery coordinates are not yet checked against a land mask. All six are within 7.1 km of a biomass site (two sit exactly on one), so the risk is low. See [Limitations](#limitations).
 
+## Solution versions
+
+| Version | Role | Candidate hub sites | Cost, $M / yr | Status |
+|---|---|---|---|---|
+| **Baseline**: existing locations | Comparison: tests whether the Hanan grid adds value | 84 (80 farm sites + 4 airports) | 890.354 | Independent HiGHS run, 900 s, gap 2.52%; plan re-validated by our checker; [`outputs/baseline-existing-sites/`](outputs/baseline-existing-sites/) |
+| **Hanan grid** (default) | **Our solution** | 4,503 (farm sites + Hanan grid; contains all 84 baseline sites) | **890.291** | Gurobi, 900 s, gap 3.04%; [`outputs/full-hanan-900s/`](outputs/full-hanan-900s/) |
+| **Hanan + Weiszfeld** | Improvement on the default: hubs moved off-grid | 6 refined positions | 890.183 | Converged, validated, reproduced by an independent implementation; [`outputs/weiszfeld-refined/`](outputs/weiszfeld-refined/) |
+
+All three use the same costs, constraints and 400 km haul limit, and all build 6 Large refineries with 21 Large + 1 Small depots. The Hanan plan is $0.063M / yr below the baseline, and Weiszfeld takes a further $0.108M off, for $0.171M / yr (0.019%) below the baseline in total. Because the Hanan candidate set contains every baseline site, its true optimum can be no worse than the baseline's.
+
+**What the baseline shows.** The baseline puts all six refineries on existing farm sites (KAL_SUP_32, 44, 46, 51, 65, 71), and each of our six hubs is within 9.4 km of one of them (H1 and H2 on the same farms; H3–H6 2.2–9.4 km away). So on this data, choosing hubs from existing farm sites already captures almost all of the saving: the Hanan grid adds $0.06M / yr and Weiszfeld $0.11M / yr. The larger drop from the earlier $931.3M farm-sites run came from its 80 km haul limit, which forced a seventh refinery, not from the candidate grid. The baseline was solved with SciPy/HiGHS rather than Gurobi; [`standalone/saf_baseline.py`](standalone/saf_baseline.py) is the Gurobi version of the same model, and its farm-sites, 80 km mode reproduces the $931.31M optimum exactly.
+
 ## The problem
 
 Choose where to build biomass depots and SAF refineries in Kalimantan, how big (Small/Large), and how to route material farm → depot → refinery → airport, to minimise total yearly cost:
@@ -26,7 +38,7 @@ Transport: farm → depot $0.10, depot → refinery $0.12, refinery → airport 
 
 **Three findings shrink the problem before solving it:**
 
-1. **Depots belong at the refinery sites.** Depots lose no mass and the depot → refinery leg ($0.12) costs more than farm → depot ($0.10). By the triangle inequality, 0.10·d(farm, refinery) ≤ 0.10·d(farm, depot) + 0.10·d(depot, refinery) < 0.10·d(farm, depot) + 0.12·d(depot, refinery). So every depot sits at its refinery (0 km leg) and the network collapses to one tier of hubs.
+1. **Depots belong at the refinery sites.** Depots lose no mass and the depot → refinery leg ($0.12) costs more than farm → depot ($0.10). By the triangle inequality, 0.10·d(farm, refinery) ≤ 0.10·d(farm, depot) + 0.10·d(depot, refinery) < 0.10·d(farm, depot) + 0.12·d(depot, refinery). So every depot sits at its refinery (0 km leg) and the network collapses to one tier of hubs. This is exact for transport. A depot shared between two hubs could in principle pool their spare capacity and save a whole depot, but that is worth at most the depot slack ($0.74M / yr, see below) minus the $0.12/t-km haul to the second refinery, so co-location costs at most that.
 2. **Large depots beat Small** (same fixed cost per tonne of capacity, $1/t cheaper to run).
 3. **Six Large refineries is the cheapest way to process 6,000 kt** ($789M / yr, vs $811M for the next option, 5 Large + 2 Small).
 
@@ -94,6 +106,8 @@ The grid restricts hubs to fixed candidate points. To measure what that costs, [
 
 All of the change is transport ($67.548M → $67.440M); facilities are unchanged (6 Large refineries, 21 Large + 1 Small depots). Every refined hub is a verified local minimum (moving it 0.5 km in any of 16 directions raises its cost), and each re-solve passes the same independent cost and constraint check. Outputs: [`outputs/weiszfeld-refined/`](outputs/weiszfeld-refined/) (`refine_summary.json`, `refine_log.csv`, plus the usual plan files).
 
+**Independent reproduction.** A separate implementation (fixed flows, modified Weiszfeld with Vardi–Zhang, moves accepted only if the great-circle × 1.3 cost drops, 400 km haul limit checked) reached $890.182738M with hub moves of 4.454, 2.177, 1.968 and 5.323 km for H3–H6. That matches ours ($890.182730M; 4.46, 2.18, 1.97, 5.32 km) to within $8 of CSV rounding. Its per-hub savings: H3 $29.5k, H4 $26.8k, H5 $10.4k, H6 $41.1k.
+
 **What it shows:**
 - **The Hanan grid already places hubs almost exactly right.** Freeing all six hubs from the grid gains $0.11M / yr, 0.012%. The grid restriction is not a meaningful source of cost.
 - **The time-limited flows are already optimal for their sites** (the same-site re-solve gains nothing).
@@ -131,6 +145,7 @@ Standalone (one file, data embedded, needs only `gurobipy`):
 pip install gurobipy
 python standalone/saf_solve.py --threads 12 --time-limit 1800   # -> saf_out/
 python standalone/weiszfeld_refine.py --base saf_out --out saf_out_refined   # refine a result
+python standalone/saf_baseline.py --threads 12 --time-limit 900 --out saf_baseline_out   # baseline
 ```
 `weiszfeld_refine.py` needs `saf_solve.py` beside it; its re-solves are small (~560 variables), so it runs on the pip licence.
 The full model has ~221k variables, so it needs an academic or WLS Gurobi licence (the pip licence is capped at 2,000).
@@ -144,6 +159,8 @@ Outputs: `facilities.csv`, `flows_farm_depot.csv`, `flows_depot_refinery.csv`, `
 | `src/app/` | data, geo, candidates, distances, model, validate, report, pipeline, CLI |
 | `standalone/saf_solve.py` | self-contained solver for other machines |
 | `standalone/weiszfeld_refine.py` | Weiszfeld refinement of a solved plan (experiment) |
+| `standalone/saf_baseline.py` | baseline solver: same model, candidates = 80 farms + 4 airports |
+| `standalone/verification/run_highs.py` | optional SciPy/HiGHS runner for the baseline (needs scipy) |
 | `config/base.toml` | all parameters and run settings (`--set section.key=value` overrides) |
 | `data/` | biomass sites, OpenFlights airports, official parameter workbook |
 | `outputs/` | solver runs |

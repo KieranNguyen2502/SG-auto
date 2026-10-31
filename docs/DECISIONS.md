@@ -2,6 +2,9 @@
 
 Short log of choices so the team (and agents) don't re-argue them. Newest first.
 
+## 2026-10-31 — Three versions: baseline, Hanan (default), Hanan + Weiszfeld
+Baseline (`standalone/saf_baseline.py`, candidates = 80 farms + 4 airports, same model and 400 km haul): $890.354M/yr, independent SciPy/HiGHS run, 900 s, gap 2.52%; plan re-validated by our checker; the Gurobi script reproduces the farm-sites/80 km optimum ($931.31M). Hanan grid stays the default solution ($890.291M, $0.063M below baseline); Hanan + Weiszfeld is the improvement ($890.183M). An independent Weiszfeld implementation reproduced ours to within $8 and 0.01 km per hub. Co-location of depots is exact for transport; depot pooling across hubs could save at most the $0.74M depot slack.
+
 ## 2026-10-31 — Weiszfeld refinement: grid sites are near-optimal in position
 `standalone/weiszfeld_refine.py` on `outputs/full-hanan-900s`: alternate Weiszfeld moves (allocation fixed, Vardi–Zhang at anchors, accept only if great-circle cost drops) with a fixed-site MILP re-solve. Same-site re-solve gains $0 (flows already optimal); refinement converges in 2 rounds to $890.183M/yr, −$0.108M (−0.012%), all in transport. H1, H2 stay on their farm sites; H3–H6 move 2.0–5.3 km (nearest farm ≤ 9.2 km). Conclusion: the Hanan grid is not a meaningful cost restriction; remaining upside is in cluster choice/allocation (MILP search), not positioning. Headline result stays the grid plan (proven gap, full hub table); the refined plan is reported alongside.
 
